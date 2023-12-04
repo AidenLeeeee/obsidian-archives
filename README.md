@@ -1,3 +1,3 @@
-![[Pasted image 20231204230140.png]]
+![[main.png]]
 ## 📕 Archives for my awesome stuff in obsidian vault
 
