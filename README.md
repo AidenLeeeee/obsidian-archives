@@ -1,3 +1,3 @@
-![[main.png]]
+![[assets/images/main.png]]
 ## 📕 Archives for my awesome stuff in obsidian vault
 
