@@ -3,3 +3,4 @@
 
 ## 📜 Archives for my awesome stuff in Obsidian Vault
 
+  🔎 Functional programming
