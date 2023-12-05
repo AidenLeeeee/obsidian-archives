@@ -72,10 +72,10 @@ function freeTieClip(cart) {
 
 **기존의 호출 그래프**
 - `freeTieClip()`
-		- `array index`
-		- `for loop`
 	- `makeItem()`
 	- `addItem()`
+		- `array index`
+		- `for loop`
 
 ### 4. 비슷한 추상화 계층에 있는 함수를 호출
 > 서로 다른 추상화 단계에 있는 기능을 사용하면 직접 구현 패턴이 아니다.
@@ -84,5 +84,5 @@ function freeTieClip(cart) {
 **개선된 호출 그래프**
 - `freeTieClip()`
 	- `isInCart()`
-	- `makeItem()
+	- `makeItem()`
 	- `addItem()`
