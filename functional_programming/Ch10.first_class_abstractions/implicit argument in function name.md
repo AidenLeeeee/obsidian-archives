@@ -38,7 +38,6 @@ function setFieldByName(cart, name, field, value) {
 }
 ```
 
-
 ## Refactor: Replace body with callback
 
 > 언어의 문법 중 어떤 문법은 일급(First-class)이 아니다.
@@ -51,3 +50,52 @@ function setFieldByName(cart, name, field, value) {
 - 함수 본문에서 바꿀 부분의 앞부분과 뒷부분을 확인한다.
 - 리팩터링 할 코드를 함수로 빼낸다.
 - 빼낸 함수의 인자로 넘길 부분을 또 다른 함수로 빼낸다.
+
+#### 리팩터링 전
+
+```javascript
+for(var i = 0; i < foods.length; i++) {
+	var food = foods[i];
+	cook(food);
+	eat(food);
+}
+```
+```javascript
+for(var i = 0; i < dishes.length; i++) {
+	var dish = dishes[i];
+	wash(dish);
+	dry(dish);
+	putAway(dish);
+}
+```
+
+#### 리팩터링 후
+
+```javascript
+function forEach(array, f) {
+	for(var i = 0; i < array.length; i++) {
+		var item = array[i];
+		f(item);
+	}
+}
+```
+```javascript
+function cookAndEat(food) {
+	cook(food);
+	eat(food);
+}
+
+forEach(foods, cookAndEat);
+```
+```javascript
+function clean(dish) {
+	wash(dish);
+	dry(dish);
+	putAway(dish);
+}
+
+forEach(dishes, clean);
+```
+
+> 함수를 인자로 받는 `forEach` 는 **고차 함수** 이다.
+> **고차 함수**는 인자로 함수를 받거나, 리턴값으로 함수를 리턴할 수 있다.
