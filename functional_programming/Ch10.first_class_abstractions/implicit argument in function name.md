@@ -7,6 +7,15 @@
 - 거의 똑같이 구현된 함수가 있다.
 - 함수 이름이 구현에 있는 다른 부분을 가리킨다.
 
+```javascript
+function setPriceByName(cart, name, price) {
+	var item = cart[name];
+	var newItem = objectSet(item, 'price', price);
+	vat newCart = objectSet(cart, name, newItem);
+	return newCart;
+}
+```
+
 ## Refactor: Express implicit argument
 
 > **암묵적 인자를 드러내기** 리팩터링은 암묵적 인자가 일급 값이 되도록 함수에 인자를 추가하는 방법이다.
