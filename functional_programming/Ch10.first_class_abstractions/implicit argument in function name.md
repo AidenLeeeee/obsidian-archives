@@ -5,7 +5,7 @@
 ### 특징
 
 - 거의 똑같이 구현된 함수가 있다.
-- 함수 이름이 구현에 있는 다른 부분을 가리킨다.
+- 함수 이름이 구현의 차이를 만든다.
 
 ```javascript
 function setPriceByName(cart, name, price) {
@@ -28,6 +28,15 @@ function setPriceByName(cart, name, price) {
 - 명시적인 인자를 추가한다.
 - 함수 본문에 하드 코딩된 값을 새로운 인자로 바꾼다.
 - 함수를 호출하는 곳을 고친다.
+
+```javascript
+function setFieldByName(cart, name, field, value) {
+	var item = cart[name];
+	var newItem = objectSet(item, field, value);
+	var newCart = objectSet(cart, name, newItem);
+	return newCart;
+}
+```
 
 
 ## Refactor: Replace body with callback
