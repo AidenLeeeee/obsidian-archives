@@ -34,7 +34,7 @@ function biggestPuchasesBestCustomers(customers) {
 **위 함수는 우수 고객을 필터링하고, 각 우수 고객의 구매 중 가장 비싼 구매 건을 반환하는 함수이다.**
 그러나 콜백이 여러 개 중첩되어 함수가 너무 커졌고, 때문에 가독성이 좋지 않다.
 
-### 해결 1
+### 해결 1. 작업을 분리하기
 
 배열에서 가장 큰 값을 찾는 `maxKey()` 함수를 구현하여, 관련 작업을 분리할 수 있다.
 
@@ -53,6 +53,43 @@ function biggestPuchasesBestCustomers(customers) {
 	});
 
 	return biggestPurchases;
+}
+
+// 배열에서 가장 큰 값을 찾는 함수
+function maxKey(array, init, f) {
+	return reduce(array, init, function(biggestSoFar, element) {
+		if (f(biggestSoFar) > f(element)) return biggestSoFar;
+		else return element;
+	});
+}
+```
+
+**특정 작업을 새로운 함수로 분리하면서, 콜백 함수를 줄이고 가독성을 높일 수 있었다.**
+
+### 해결 2. 콜백을 분리하기
+
+인라인으로 정의한 콜백 함수를 분리하여 구현하고, 재사용성 및 가독성을 높일 수 있다.
+
+```javascript
+function biggestPurchasesBestCustomers(customers) {
+	const bestCustomers = filter(customers, isBestCustomer);
+	const biggestPurchases = map(bestCustomers, getBiggestPurchase);
+	return biggestPurchases;
+}
+
+// 콜백 1. 우수 고객 여부를 반환하는 함수
+function isBestCustomer(customer) {
+	return customer.purchases.length >= 3;
+}
+
+// 콜백 2. 고객의 구매 중 가장 비싼 구매 건을 반환하는 함수
+function getBiggestPurchase(customer) {
+	return maxKey(customer.purchases, { total: 0 }, getPurchaseTotal);
+}
+
+// 콜백 3. 인자로 받은 구매 내역의 금액을 반환하는 함수
+function getPurchaseTotal(purchase) {
+	return purchase.total;
 }
 
 // 배열에서 가장 큰 값을 찾는 함수
