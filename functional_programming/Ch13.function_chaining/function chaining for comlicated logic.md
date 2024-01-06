@@ -33,3 +33,33 @@ function biggestPuchasesBestCustomers(customers) {
 
 **위 함수는 우수 고객을 필터링하고, 각 우수 고객의 구매 중 가장 비싼 구매 건을 반환하는 함수이다.**
 그러나 콜백이 여러 개 중첩되어 함수가 너무 커졌고, 때문에 가독성이 좋지 않다.
+
+### 해결 1
+
+배열에서 가장 큰 값을 찾는 `maxKey()` 함수를 구현하여, 관련 작업을 분리할 수 있다.
+
+```javascript
+function biggestPuchasesBestCustomers(customers) {
+	// 단계 1. 우수 고객(3개 이상 구매)를 필터링
+	const bestCustomers = filter(customers, function(customer) {
+		return customer.puchases.length >= 3;
+	});
+
+	// 단계 2. 우수 고객을 가장 비싼 구매로 변환
+	const biggestPurchases = map(bestCustomers, function(customer) {
+		return maxKey(customer.purchases, { total: 0 }, function(purchase) {
+			return purchase.total;
+		});
+	});
+
+	return biggestPurchases;
+}
+
+// 배열에서 가장 큰 값을 찾는 함수
+function maxKey(array, init, f) {
+	return reduce(array, init, function(biggestSoFar, element) {
+		if (f(biggestSoFar) > f(element)) return biggestSoFar;
+		else return element;
+	});
+}
+```
