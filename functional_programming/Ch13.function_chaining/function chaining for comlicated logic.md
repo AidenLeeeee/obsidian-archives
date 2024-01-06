@@ -31,3 +31,5 @@ function biggestPuchasesBestCustomers(customers) {
 }
 ```
 
+**위 함수는 우수 고객을 필터링하고, 각 우수 고객의 구매 중 가장 비싼 구매 건을 반환하는 함수이다.**
+그러나 콜백이 여러 개 중첩되어 함수가 너무 커졌고, 때문에 가독성이 좋지 않다.
