@@ -12,20 +12,24 @@ function Queue(worker) {
 		if (working) return;
 		if (queue_items.length === 0) return;
 		working = true;
-		const cart = queue_items.shift();
+		const item = queue_items.shift();
 
-		worker(cart, function() {
+		worker(item.data, function() {
 			working = false;
 			runNext();
 		});
 	}
 
-	return function(cart) {
-		queue_items.push(cart);
+	return function(data) {
+		queue_items.push(data);
 		setTimeout(runNext, 0);
 	};
 }
+```
 
+위에서 구현된 Queue 는 아래와 같이 사용할 수 있다.
+
+```javascript
 function calc_cart_worker(cart, done) {
 	calc_cart_total(cart, function(total) {
 		update_total_dom(total);
@@ -35,3 +39,16 @@ function calc_cart_worker(cart, done) {
 
 const update_total_queue = Queue(calc_cart_worker);
 ```
+
+구현된 Queue() 는 액션의 **순서 보장**을 가능하게 해주는 도구이다.
+
+Queue() 라는 말 대신 linearize() 라고 할 수도 있다.
+Queue 가 액션 호출을 순서대로 만들기 때문이다.
+
+Queue 는 동시성 기본형이다.
+여러 타임라인을 올바르게 동작하도록 만드는 재사용 가능한 코드이다.
+동시성 기본형은 방법은 다르지만 모두 실행 가능한 순서를 제한하면서 동작한다.
+기대하지 않는 순서를 없애면 코드가 기대한 순서로 동작한다는 것을 보장할 수 있다.
+
+이제 Queue 를 사용해 DOM 업데이트를 같은 타임라인에서 하도록 만들었기 때문에 순서 문제가 생기지 않는다.
+제품 추가 버튼을 누르는 순서대로 DOM 업데이트가 실행된다.
