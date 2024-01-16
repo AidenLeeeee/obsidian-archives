@@ -50,4 +50,4 @@ done();
 // console -> "3 timelines are finished!"
 ```
 
-세 번째 `done()` 이 호출되면 콘솔에 메시지를 출려
+세 번째 `done()` 이 호출되면 콘솔에 메시지를 출력한다.
