@@ -64,3 +64,15 @@ function ValueCell(initialValue) {
 ```
 
 감시자를 활용해 상태가 변경되었을 때의 실행될 행위를 지정할 수 있다.
+
+> **감시자**는 아래와 같은 이름으로 불리기도 한다.
+> - 이벤트 핸들러(Event Handler)
+> - 옵저버(Observer)
+> - 콜백(Callback)
+> - 리스너(Listener)
+
+## Value cell 을 일관되게 유지하기
+
+- 올바른 값으로 초기화한다.
+- `update()` 에는 계산을 전달한다.
+- 계산은 올바른 값이 주어졌다면 올바른 값을 리턴해야 한다.
